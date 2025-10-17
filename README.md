@@ -2,7 +2,7 @@
 
 ## 📋 Visão Geral
 
-Sistema completo de mineração com 3 etapas: **Mineração** → **Lavagem** → **Forja**. Cada etapa tem timers específicos, requisitos e recompensas diferentes.
+Sistema completo de mineração com 3 etapas: **Mineração** → **Lavagem** → **Forja**. Cada etapa tem temporizadores específicos, requisitos e recompensas diferentes.
 
 ---
 
@@ -13,9 +13,9 @@ Sistema completo de mineração com 3 etapas: **Mineração** → **Lavagem** �
 - **Coordenadas:** 16 pontos espalhados pela área de mineração
 - **Raio de ação:** 1.5 metros
 
-### ⏱️ Timers
+### ⏱️ Temporizadores
 - **Tempo de mineração:** 10 segundos
-- **Cooldown entre minerações:** 2 segundos
+- **Tempo de espera entre minerações:** 2 segundos
 - **Total por ciclo:** 12 segundos
 
 ### 🛠️ Requisitos
@@ -41,9 +41,9 @@ Sistema completo de mineração com 3 etapas: **Mineração** → **Lavagem** �
 - **Coordenadas:** 2 pontos específicos
 - **Raio de ação:** 1.5 metros
 
-### ⏱️ Timers
+### ⏱️ Temporizadores
 - **Tempo de lavagem:** 8 segundos
-- **Cooldown entre lavagens:** 2 segundos
+- **Tempo de espera entre lavagens:** 2 segundos
 - **Total por ciclo:** 10 segundos
 
 ### 🛠️ Requisitos
@@ -71,14 +71,15 @@ Sistema completo de mineração com 3 etapas: **Mineração** → **Lavagem** �
 - **Coordenadas:** 1 ponto específico
 - **Raio de ação:** 1.5 metros
 
-### ⏱️ Timers
+### ⏱️ Temporizadores
 - **Tempo de processamento:** 12 segundos
-- **Cooldown entre processamentos:** 2 segundos
-- **Total por ciclo:** 14 segundos
+- **Tempo de exibição do item:** 4 segundos
+- **Tempo de espera entre processamentos:** 2 segundos
+- **Total por ciclo:** 18 segundos (12s processamento + 4s exibição + 2s espera)
 
 ### 🛠️ Requisitos
-- **Input:** 10x Pedra Lavada (consumidas)
-- **Combustível:** Carvão (consumido gradualmente)
+- **Input:** 10x Pedra Lavada por processamento (consumidas em lote)
+- **Combustível:** 2x Carvão por processamento (consumido por lote)
 - **Preço do carvão:** $50
 
 ### 🌡️ Sistema de Temperatura
@@ -89,11 +90,12 @@ Sistema completo de mineração com 3 etapas: **Mineração** → **Lavagem** �
 - **Temperatura máxima:** 1,400°C
 - **Temperatura mínima para processar:** 600°C
 
-#### Controle de Temperatura
-- **Boost por carvão adicionado:** +50°C (imediato)
-- **Aquecimento com carvão:** +15°C por segundo
-- **Resfriamento sem carvão:** -5°C por segundo
-- **Duração do carvão:** 10 segundos por unidade
+#### Controlo de Temperatura
+- **Impulso por carvão adicionado:** +15°C (imediato, mais gradual)
+- **Aquecimento com carvão:** +20°C por segundo (mais gradual)
+- **Arrefecimento sem carvão:** -5°C por segundo (mais gradual)
+- **Duração do carvão:** 20 segundos por unidade (mais duradouro)
+- **Controlo livre:** Podes adicionar carvão a qualquer momento, mesmo durante processamento
 
 #### Faixas de Temperatura
 | Faixa | Temperatura | Cor | Status |
@@ -111,45 +113,47 @@ Sistema completo de mineração com 3 etapas: **Mineração** → **Lavagem** �
 - **Taxa de sucesso:** 0%
 
 #### 🟡 Morno (600-849°C)
-- **Ferro:** 70% chance (1-2x)
-- **Cobre:** 30% chance (1-2x)
+- **Ferro:** 70% probabilidade (1-2x)
+- **Cobre:** 30% probabilidade (1-2x)
 
 #### 🟢 Temperatura Boa (850-1149°C) - **IDEAL**
-- **Ferro:** 40% chance (1-2x)
-- **Prata:** 25% chance (1-2x)
-- **Ouro:** 15% chance (1-2x)
-- **Rubi:** 10% chance (1x)
-- **Esmeralda:** 10% chance (1x)
+- **Ferro:** 40% probabilidade (1-2x)
+- **Cobre:** 20% probabilidade (1-2x)
+- **Prata:** 20% probabilidade (1-2x)
+- **Ouro:** 10% probabilidade (1-2x)
+- **Rubi:** 5% probabilidade (1x)
+- **Esmeralda:** 5% probabilidade (1x)
 
 #### 🟠 Quente Demais (1150-1299°C)
-- **Ferro:** 60% chance (1x)
-- **Cobre:** 40% chance (1x)
+- **Ferro:** 60% probabilidade (1x)
+- **Cobre:** 40% probabilidade (1x)
 
 #### 🔴 Muito Quente (≥ 1300°C)
-- **Cobre:** 100% chance (1x)
+- **Cobre:** 100% probabilidade (1x)
 
 ### 📊 Economia da Forja
 
 #### Consumo de Recursos
-- **Pedras lavadas por processamento:** 10x
-- **Carvão necessário:** ~2-3x (depende da temperatura)
-- **Tempo por processamento:** 14 segundos
+- **Pedras lavadas por processamento:** 10x (sempre em lote)
+- **Carvão necessário:** 2x (sempre fixo por processamento)
+- **Tempo por processamento:** 18 segundos (12s processamento + 4s exibição + 2s cooldown)
 
 #### Rendimento por Hora (Temperatura Ideal - 850-1149°C)
-- **Processamentos por hora:** ~257
-- **Pedras lavadas consumidas:** 2,570
-- **Carvão consumido:** ~514-771
+- **Processamentos por hora:** ~200
+- **Pedras lavadas consumidas:** 2,000
+- **Carvão consumido:** 400 (2x por processamento)
 
 #### Itens Esperados por Hora (Temperatura Ideal)
-- **Ferro:** ~103-206x (40% chance)
-- **Prata:** ~64-128x (25% chance)
-- **Ouro:** ~39-78x (15% chance)
-- **Rubi:** ~26x (10% chance)
-- **Esmeralda:** ~26x (10% chance)
+- **Ferro:** ~80-160x (40% probabilidade)
+- **Cobre:** ~40-80x (20% probabilidade)
+- **Prata:** ~40-80x (20% probabilidade)
+- **Ouro:** ~20-40x (10% probabilidade)
+- **Rubi:** ~10x (5% probabilidade)
+- **Esmeralda:** ~10x (5% probabilidade)
 
 ---
 
-## 💰 Análise Econômica Completa
+## 💰 Análise Económica Completa
 
 ### Custo de Ferramentas
 - **Picareta:** $250 (uso ilimitado)
@@ -161,26 +165,27 @@ Sistema completo de mineração com 3 etapas: **Mineração** → **Lavagem** �
 #### Para 1 Processamento na Forja:
 1. **Mineração:** 2x ciclos (20 segundos) = 10 pedras
 2. **Lavagem:** 1x ciclo (10 segundos) = 10 pedras lavadas
-3. **Forja:** 1x ciclo (14 segundos) = 1 processamento
+3. **Forja:** 1x ciclo (18 segundos) = 1 processamento (10 pedras)
 
-**Total:** 44 segundos para 1 processamento completo
+**Total:** 48 segundos para 1 processamento completo
 
 #### Produção por Hora:
-- **Processamentos completos:** ~82
-- **Pedras mineradas:** 820
-- **Pedras lavadas:** 820
-- **Carvão consumido:** ~164-246
+- **Processamentos completos:** ~75
+- **Pedras mineradas:** 750
+- **Pedras lavadas:** 750
+- **Carvão consumido:** 150 (2x por processamento)
 
 ### Valor dos Itens (Exemplo)
 *Nota: Os preços devem ser configurados no sistema de vendas*
 
 | Item | Quantidade/Hora | Valor Estimado |
 |------|----------------|----------------|
-| Ferro | 33-66x | $X por unidade |
-| Prata | 20-41x | $X por unidade |
-| Ouro | 12-25x | $X por unidade |
-| Rubi | 8x | $X por unidade |
-| Esmeralda | 8x | $X por unidade |
+| Ferro | 80-160x | $X por unidade |
+| Cobre | 40-80x | $X por unidade |
+| Prata | 40-80x | $X por unidade |
+| Ouro | 20-40x | $X por unidade |
+| Rubi | 10x | $X por unidade |
+| Esmeralda | 10x | $X por unidade |
 
 ---
 
@@ -189,27 +194,49 @@ Sistema completo de mineração com 3 etapas: **Mineração** → **Lavagem** �
 ### Para Máximo Rendimento:
 1. **Mantenha a temperatura entre 850-1149°C**
 2. **Adicione carvão gradualmente** para controlar a temperatura
-3. **Processe em lotes** para economizar tempo
+3. **Processe em lotes** para poupar tempo
 4. **Monitore o consumo de carvão** para evitar desperdício
+5. **Use o controlo livre de carvão** - adicione quando precisar de mais calor
 
 ### Estratégias de Temperatura:
 - **Início:** Adicione 2-3 carvões para atingir 600°C
-- **Manutenção:** Adicione 1 carvão a cada 10-15 segundos
+- **Manutenção:** Adicione 1 carvão a cada 20-30 segundos (carvão dura mais)
 - **Ideal:** Mantenha entre 900-1100°C para melhor rendimento
+- **Controlo:** Podes adicionar carvão a qualquer momento para controlar a temperatura
 - **Evite:** Temperaturas acima de 1150°C (degradação)
+
+---
+
+## 🆕 Novas Funcionalidades
+
+### 🔥 Sistema de Temperatura Melhorado
+- **Controlo livre de carvão:** Podes adicionar carvão a qualquer momento, mesmo durante processamento
+- **Temperatura mais gradual:** Aquecimento e arrefecimento mais suaves para melhor controlo
+- **Carvão mais duradouro:** 1 carvão dura 20 segundos (em vez de 10)
+- **Impulso mais suave:** +15°C por carvão (em vez de +50°C)
+
+### 🎯 Processamento Optimizado
+- **Processamento em lote:** 10x pedras lavadas por ciclo
+- **Exibição do item:** Item aparece na forja por 4 segundos antes de ir para o inventário
+- **Remoção automática:** Itens são removidos automaticamente do inventário quando adicionados à forja
+- **Interface sem restrições:** Podes abrir a forja mesmo sem carvão no inventário
+
+### 🖼️ Sistema de Imagens
+- **Imagens do GitHub:** Todos os itens usam imagens directamente do repositório GitHub
+- **Fallback automático:** Se a imagem não carregar, mostra a primeira letra do item
 
 ---
 
 ## ⚙️ Configurações Técnicas
 
-### Arquivos de Configuração:
-- **`config.lua`:** Timers, recompensas, localizações
+### Ficheiros de Configuração:
+- **`config.lua`:** Temporizadores, recompensas, localizações
 - **`forge.js`:** Sistema de temperatura, interface
 - **`server.lua`:** Lógica de recompensas, anti-cheat
 
 ### Personalização:
-- Todos os timers podem ser ajustados no `config.lua`
-- As porcentagens de recompensa podem ser modificadas
+- Todos os temporizadores podem ser ajustados no `config.lua`
+- As percentagens de recompensa podem ser modificadas
 - As temperaturas podem ser ajustadas no `forge.js`
 - Os preços dos itens podem ser alterados
 
@@ -218,9 +245,9 @@ Sistema completo de mineração com 3 etapas: **Mineração** → **Lavagem** �
 ## 🔧 Suporte
 
 Para dúvidas ou problemas:
-1. Verifique os logs do console
+1. Verifique os logs da consola
 2. Confirme se tem as ferramentas necessárias
-3. Verifique se está na zona correta
+3. Verifique se está na zona correcta
 4. Consulte este README para referência
 
 ---

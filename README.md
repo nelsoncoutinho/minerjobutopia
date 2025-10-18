@@ -1,255 +1,378 @@
-# 🏔️ Sistema de Mineração - Utopia
+# 🪨 UT_MINER - Sistema de Mineração
 
-## 📋 Visão Geral
-
-Sistema completo de mineração com 3 etapas: **Mineração** → **Lavagem** → **Forja**. Cada etapa tem temporizadores específicos, requisitos e recompensas diferentes.
-
----
-
-## ⛏️ ETAPA 1: MINERAÇÃO
-
-### 📍 Localização
-- **Zona:** Mina de mineração
-- **Coordenadas:** 16 pontos espalhados pela área de mineração
-- **Raio de ação:** 1.5 metros
-
-### ⏱️ Temporizadores
-- **Tempo de mineração:** 10 segundos
-- **Tempo de espera entre minerações:** 2 segundos
-- **Total por ciclo:** 12 segundos
-
-### 🛠️ Requisitos
-- **Ferramenta:** Picareta (obrigatória)
-- **Preço da picareta:** $250
-
-### 🎁 Recompensas
-- **Item:** Pedra
-- **Quantidade:** 5x (sempre fixo)
-- **Taxa de sucesso:** 100%
-
-### 📊 Economia
-- **Tempo por pedra:** 2.4 segundos
-- **Pedras por minuto:** 25
-- **Pedras por hora:** 1,500
+## 📋 Índice
+- [Visão Geral](#visão-geral)
+- [Fluxo do Trabalho](#fluxo-do-trabalho)
+- [Sistema de Temperaturas](#sistema-de-temperaturas)
+- [Tabela de Probabilidades](#tabela-de-probabilidades)
+- [Cálculos de Rentabilidade](#cálculos-de-rentabilidade)
+- [Preços Recomendados](#preços-recomendados)
+- [Tempos de Processamento](#tempos-de-processamento)
 
 ---
 
-## 🧽 ETAPA 2: LAVAGEM
+## 🎯 Visão Geral
 
-### 📍 Localização
-- **Zona:** Pontos de lavagem
-- **Coordenadas:** 2 pontos específicos
-- **Raio de ação:** 1.5 metros
-
-### ⏱️ Temporizadores
-- **Tempo de lavagem:** 8 segundos
-- **Tempo de espera entre lavagens:** 2 segundos
-- **Total por ciclo:** 10 segundos
-
-### 🛠️ Requisitos
-- **Ferramenta:** Peneira (obrigatória)
-- **Preço da peneira:** $150
-- **Input:** 15x Pedra (consumidas)
-
-### 🎁 Recompensas
-- **Item:** Pedra Lavada
-- **Quantidade:** 15x (sempre fixo)
-- **Taxa de sucesso:** 100%
-
-### 📊 Economia
-- **Tempo por pedra lavada:** 0.67 segundos
-- **Pedras lavadas por minuto:** 90
-- **Pedras lavadas por hora:** 5,400
-- **Eficiência:** 1:1 (15 pedras → 15 pedras lavadas)
+O sistema de mineração possui **3 etapas** principais:
+1. **Mineração** - Obter pedras brutas
+2. **Lavagem** - Transformar pedras brutas em pedras lavadas
+3. **Processamento (Forja)** - Fundir pedras lavadas em minérios valiosos
 
 ---
 
-## 🔥 ETAPA 3: FORJA
+## 🔄 Fluxo do Trabalho
 
-### 📍 Localização
-- **Zona:** Forja principal
-- **Coordenadas:** 1 ponto específico
-- **Raio de ação:** 1.5 metros
+### **ETAPA 1: Mineração** ⛏️
+- **Local:** Pontos de mineração (16 locais disponíveis)
+- **Requisito:** Picareta (opcional, configurável)
+- **Tempo:** 10 segundos por mineração
+- **Cooldown:** 2 segundos entre minerações
+- **Resultado:** **5 pedras** (quantidade fixa)
 
-### ⏱️ Temporizadores
-- **Tempo de processamento:** 12 segundos
-- **Tempo de exibição do item:** 4 segundos
-- **Tempo de espera entre processamentos:** 2 segundos
-- **Total por ciclo:** 18 segundos (12s processamento + 4s exibição + 2s espera)
+### **ETAPA 2: Lavagem** 💧
+- **Local:** Pontos de lavagem (2 locais disponíveis)
+- **Requisito:** Peneira + 15 pedras brutas
+- **Tempo:** 8 segundos
+- **Cooldown:** 2 segundos
+- **Resultado:** **15 pedras lavadas** (quantidade fixa, conversão 1:1)
 
-### 🛠️ Requisitos
-- **Input:** 10x Pedra Lavada por processamento (consumidas em lote)
-- **Combustível:** 2x Carvão por processamento (consumido por lote)
-- **Preço do carvão:** $50
+### **ETAPA 3: Processamento na Forja** 🔥
+- **Local:** Forja Principal (1 local)
+- **Requisitos:** 
+  - 10 pedras lavadas (consumidas)
+  - 2 carvões (consumidos)
+- **Tempo:** 12 segundos
+- **Resultado:** 1-2 minérios (dependendo do item e temperatura)
 
-### 🌡️ Sistema de Temperatura
+---
 
-#### Configurações Básicas
-- **Temperatura inicial:** 500°C
+## 🌡️ Sistema de Temperaturas
+
+A temperatura da forja é **CRUCIAL** e afeta diretamente:
+- **Probabilidade** de obter itens raros
+- **Quantidade** de itens obtidos
+- **Qualidade** dos materiais
+
+### Faixas de Temperatura
+
+| Temperatura | Status | Efeito | Ícone |
+|------------|--------|--------|-------|
+| **< 600°C** | ❄️ Muito Frio | **FALHA TOTAL** - Não produz nada | ❄️ |
+| **600-850°C** | 🟡 Morno | Pouco rendimento, materiais comuns | 🟡 |
+| **850-1150°C** | 🟢 **IDEAL** | **Melhor rendimento**, materiais valiosos | 🟢 |
+| **1150-1300°C** | 🟠 Quente Demais | Materiais degradam, perde qualidade | 🟠 |
+| **> 1300°C** | 🔴 Crítico | Forja queima materiais, mínimo rendimento | 🔴 |
+
+### Mecânica de Temperatura
+
+#### 🔥 Aquecimento
+- **1 Carvão** adicionado: +15°C instantâneo
+- **Com carvão ativo:** +20°C por segundo
+- **Temperatura máxima:** 1400°C
+
+#### ❄️ Resfriamento
+- **Sem carvão:** -5°C por segundo (resfriamento natural)
 - **Temperatura mínima:** 500°C
-- **Temperatura máxima:** 1,400°C
-- **Temperatura mínima para processar:** 600°C
 
-#### Controlo de Temperatura
-- **Impulso por carvão adicionado:** +15°C (imediato, mais gradual)
-- **Aquecimento com carvão:** +20°C por segundo (mais gradual)
-- **Arrefecimento sem carvão:** -5°C por segundo (mais gradual)
-- **Duração do carvão:** 20 segundos por unidade (mais duradouro)
-- **Controlo livre:** Podes adicionar carvão a qualquer momento, mesmo durante processamento
-
-#### Faixas de Temperatura
-| Faixa | Temperatura | Cor | Status |
-|-------|-------------|-----|--------|
-| ❄️ Muito Frio | < 600°C | Azul | Não processa |
-| 🟡 Morno | 600-849°C | Amarelo | Rendimento baixo |
-| 🟢 Temperatura Boa | 850-1149°C | Verde | Rendimento ideal |
-| 🟠 Quente Demais | 1150-1299°C | Laranja | Rendimento reduzido |
-| 🔴 Muito Quente | ≥ 1300°C | Vermelho | Rendimento mínimo |
-
-### 🎁 Recompensas por Temperatura
-
-#### ❄️ Muito Frio (< 600°C)
-- **Resultado:** Nenhum item
-- **Taxa de sucesso:** 0%
-
-#### 🟡 Morno (600-849°C)
-- **Ferro:** 70% probabilidade (1-2x)
-- **Cobre:** 30% probabilidade (1-2x)
-
-#### 🟢 Temperatura Boa (850-1149°C) - **IDEAL**
-- **Ferro:** 40% probabilidade (1-2x)
-- **Cobre:** 20% probabilidade (1-2x)
-- **Prata:** 20% probabilidade (1-2x)
-- **Ouro:** 10% probabilidade (1-2x)
-- **Rubi:** 5% probabilidade (1x)
-- **Esmeralda:** 5% probabilidade (1x)
-
-#### 🟠 Quente Demais (1150-1299°C)
-- **Ferro:** 60% probabilidade (1x)
-- **Cobre:** 40% probabilidade (1x)
-
-#### 🔴 Muito Quente (≥ 1300°C)
-- **Cobre:** 100% probabilidade (1x)
-
-### 📊 Economia da Forja
-
-#### Consumo de Recursos
-- **Pedras lavadas por processamento:** 10x (sempre em lote)
-- **Carvão necessário:** 2x (sempre fixo por processamento)
-- **Tempo por processamento:** 18 segundos (12s processamento + 4s exibição + 2s cooldown)
-
-#### Rendimento por Hora (Temperatura Ideal - 850-1149°C)
-- **Processamentos por hora:** ~200
-- **Pedras lavadas consumidas:** 2,000
-- **Carvão consumido:** 400 (2x por processamento)
-
-#### Itens Esperados por Hora (Temperatura Ideal)
-- **Ferro:** ~80-160x (40% probabilidade)
-- **Cobre:** ~40-80x (20% probabilidade)
-- **Prata:** ~40-80x (20% probabilidade)
-- **Ouro:** ~20-40x (10% probabilidade)
-- **Rubi:** ~10x (5% probabilidade)
-- **Esmeralda:** ~10x (5% probabilidade)
+#### ⏱️ Duração do Carvão
+- **1 Carvão dura aproximadamente 20 segundos**
+- Consumo gradual enquanto aquece a forja
 
 ---
 
-## 💰 Análise Económica Completa
+## 📊 Tabela de Probabilidades
 
-### Custo de Ferramentas
-- **Picareta:** $250 (uso ilimitado)
-- **Peneira:** $150 (uso ilimitado)
-- **Carvão:** $50 por unidade
+### ❄️ Temperatura < 600°C (Muito Frio)
+```
+❌ NÃO PRODUZ NADA
+Mensagem: "Frio demais, nada se funde assim."
+```
 
-### Fluxo de Produção Completo
+### 🟡 Temperatura 600-850°C (Morno)
+| Item | Probabilidade | Quantidade | Valor Atual |
+|------|--------------|------------|-------------|
+| Ferro | 70% | 1-2x | $80 |
+| Cobre | 30% | 1-2x | $120 |
 
-#### Para 1 Processamento na Forja:
-1. **Mineração:** 2x ciclos (20 segundos) = 10 pedras
-2. **Lavagem:** 1x ciclo (10 segundos) = 10 pedras lavadas
-3. **Forja:** 1x ciclo (18 segundos) = 1 processamento (10 pedras)
+**Rendimento médio:** Baixo - Apenas materiais comuns
 
-**Total:** 48 segundos para 1 processamento completo
+### 🟢 Temperatura 850-1150°C (IDEAL) ⭐
+| Item | Probabilidade | Quantidade | Valor Atual |
+|------|--------------|------------|-------------|
+| Ferro | 40% | 1-2x | $80 |
+| Prata | 25% | 1-2x | $200 |
+| Ouro | 15% | 1-2x | $350 |
+| Rubi | 10% | **1x** (fixo) | $600 |
+| Esmeralda | 10% | **1x** (fixo) | $650 |
 
-#### Produção por Hora:
-- **Processamentos completos:** ~75
-- **Pedras mineradas:** 750
-- **Pedras lavadas:** 750
-- **Carvão consumido:** 150 (2x por processamento)
+**Rendimento médio:** Alto - Melhor zona para lucro
 
-### Valor dos Itens (Exemplo)
-*Nota: Os preços devem ser configurados no sistema de vendas*
+### 🟠 Temperatura 1150-1300°C (Quente Demais)
+| Item | Probabilidade | Quantidade | Valor Atual |
+|------|--------------|------------|-------------|
+| Ferro | 60% | **1x** (fixo) | $80 |
+| Cobre | 40% | **1x** (fixo) | $120 |
 
-| Item | Quantidade/Hora | Valor Estimado |
-|------|----------------|----------------|
-| Ferro | 80-160x | $X por unidade |
-| Cobre | 40-80x | $X por unidade |
-| Prata | 40-80x | $X por unidade |
-| Ouro | 20-40x | $X por unidade |
-| Rubi | 10x | $X por unidade |
-| Esmeralda | 10x | $X por unidade |
+**Rendimento médio:** Baixo - Materiais degradados
 
----
+### 🔴 Temperatura > 1300°C (Muito Quente)
+| Item | Probabilidade | Quantidade | Valor Atual |
+|------|--------------|------------|-------------|
+| Cobre | 100% | **1x** (fixo) | $120 |
 
-## 🎯 Dicas de Otimização
-
-### Para Máximo Rendimento:
-1. **Mantenha a temperatura entre 850-1149°C**
-2. **Adicione carvão gradualmente** para controlar a temperatura
-3. **Processe em lotes** para poupar tempo
-4. **Monitore o consumo de carvão** para evitar desperdício
-5. **Use o controlo livre de carvão** - adicione quando precisar de mais calor
-
-### Estratégias de Temperatura:
-- **Início:** Adicione 2-3 carvões para atingir 600°C
-- **Manutenção:** Adicione 1 carvão a cada 20-30 segundos (carvão dura mais)
-- **Ideal:** Mantenha entre 900-1100°C para melhor rendimento
-- **Controlo:** Podes adicionar carvão a qualquer momento para controlar a temperatura
-- **Evite:** Temperaturas acima de 1150°C (degradação)
+**Rendimento médio:** Mínimo - Tudo queimado
 
 ---
 
-## 🆕 Novas Funcionalidades
+## 💰 Cálculos de Rentabilidade
 
-### 🔥 Sistema de Temperatura Melhorado
-- **Controlo livre de carvão:** Podes adicionar carvão a qualquer momento, mesmo durante processamento
-- **Temperatura mais gradual:** Aquecimento e arrefecimento mais suaves para melhor controlo
-- **Carvão mais duradouro:** 1 carvão dura 20 segundos (em vez de 10)
-- **Impulso mais suave:** +15°C por carvão (em vez de +50°C)
+### Custos Fixos (Loja de Equipamentos)
+```
+Picareta: $250 (compra única, não quebra)
+Peneira: $150 (compra única, não quebra)
+Carvão: $50 por unidade
+```
 
-### 🎯 Processamento Optimizado
-- **Processamento em lote:** 10x pedras lavadas por ciclo
-- **Exibição do item:** Item aparece na forja por 4 segundos antes de ir para o inventário
-- **Remoção automática:** Itens são removidos automaticamente do inventário quando adicionados à forja
-- **Interface sem restrições:** Podes abrir a forja mesmo sem carvão no inventário
+### Ciclo Completo (Temperatura IDEAL 850-1150°C)
 
-### 🖼️ Sistema de Imagens
-- **Imagens do GitHub:** Todos os itens usam imagens directamente do repositório GitHub
-- **Fallback automático:** Se a imagem não carregar, mostra a primeira letra do item
+#### 📊 Processo para obter 10 pedras lavadas:
+1. **Mineração:** 2 minerações (5 pedras cada) = 10 pedras brutas
+2. **Lavagem:** Não aplicável neste ciclo (precisa 15 pedras)
+
+#### 📊 Processo completo (45 pedras brutas → 30 pedras lavadas → 3 processamentos):
+
+```
+MINERAÇÃO (45 pedras brutas):
+- Quantidade de minerações: 9x (45 ÷ 5)
+- Tempo total: 9 × 10s = 90 segundos (1min 30s)
+- Cooldown: 9 × 2s = 18 segundos
+- Total: 108 segundos (1min 48s)
+
+LAVAGEM (45 pedras → 45 pedras lavadas):
+- Quantidade de lavagens: 3x (45 ÷ 15)
+- Tempo total: 3 × 8s = 24 segundos
+- Cooldown: 3 × 2s = 6 segundos
+- Total: 30 segundos
+
+PROCESSAMENTO (45 pedras lavadas → minérios):
+- Quantidade de processamentos: 4x (40 pedras ÷ 10)
+- Tempo total: 4 × 12s = 48 segundos
+- Carvão necessário: 4 × 2 = 8 carvões
+- Total: 48 segundos
+
+CUSTO:
+- 8 carvões × $50 = $400
+
+TEMPO TOTAL: 108s + 30s + 48s = 186 segundos (3min 6s)
+```
+
+### 📈 Lucro Esperado por Temperatura (4 processamentos)
+
+#### 🟢 TEMPERATURA IDEAL (850-1150°C)
+```
+Probabilidades esperadas em 4 processamentos:
+
+Ferro (40%): ~1.6 vezes → 1.6 × 1.5 (média) = 2.4 unidades → $192
+Prata (25%): ~1.0 vez → 1.0 × 1.5 (média) = 1.5 unidades → $300
+Ouro (15%): ~0.6 vez → 0.6 × 1.5 (média) = 0.9 unidades → $315
+Rubi (10%): ~0.4 vez → 0.4 × 1 (fixo) = 0.4 unidades → $240
+Esmeralda (10%): ~0.4 vez → 0.4 × 1 (fixo) = 0.4 unidades → $260
+
+RECEITA MÉDIA: $1,307
+CUSTO: $400 (carvão)
+LUCRO MÉDIO: $907
+LUCRO POR HORA: ~$17,533 (3min 6s por ciclo)
+```
+
+#### 🟡 TEMPERATURA MORNA (600-850°C)
+```
+Probabilidades esperadas em 4 processamentos:
+
+Ferro (70%): ~2.8 vezes → 2.8 × 1.5 (média) = 4.2 unidades → $336
+Cobre (30%): ~1.2 vezes → 1.2 × 1.5 (média) = 1.8 unidades → $216
+
+RECEITA MÉDIA: $552
+CUSTO: $400 (carvão)
+LUCRO MÉDIO: $152
+LUCRO POR HORA: ~$2,909 (3min 6s por ciclo)
+```
+
+#### 🟠 TEMPERATURA QUENTE DEMAIS (1150-1300°C)
+```
+Probabilidades esperadas em 4 processamentos:
+
+Ferro (60%): ~2.4 vezes → 2.4 × 1 (fixo) = 2.4 unidades → $192
+Cobre (40%): ~1.6 vezes → 1.6 × 1 (fixo) = 1.6 unidades → $192
+
+RECEITA MÉDIA: $384
+CUSTO: $400 (carvão)
+LUCRO MÉDIO: -$16 (PREJUÍZO)
+LUCRO POR HORA: ~-$307 (PREJUÍZO)
+```
+
+#### 🔴 TEMPERATURA MUITO QUENTE (> 1300°C)
+```
+Probabilidades esperadas em 4 processamentos:
+
+Cobre (100%): 4 vezes → 4 × 1 (fixo) = 4 unidades → $480
+
+RECEITA MÉDIA: $480
+CUSTO: $400 (carvão)
+LUCRO MÉDIO: $80
+LUCRO POR HORA: ~$1,532 (3min 6s por ciclo)
+```
 
 ---
 
-## ⚙️ Configurações Técnicas
+## 💎 Preços Recomendados
 
-### Ficheiros de Configuração:
-- **`config.lua`:** Temporizadores, recompensas, localizações
-- **`forge.js`:** Sistema de temperatura, interface
-- **`server.lua`:** Lógica de recompensas, anti-cheat
+### Preços Atuais vs Recomendados
 
-### Personalização:
-- Todos os temporizadores podem ser ajustados no `config.lua`
-- As percentagens de recompensa podem ser modificadas
-- As temperaturas podem ser ajustadas no `forge.js`
-- Os preços dos itens podem ser alterados
+Com base na análise de rentabilidade e raridade:
+
+| Item | Preço Atual | Raridade | Preço Recomendado | Justificativa |
+|------|-------------|----------|-------------------|---------------|
+| **Ferro** | $80 | Comum (40%) | $80-100 | Material básico, alta probabilidade |
+| **Cobre** | $120 | Comum (20-30%) | $100-130 | Material comum, boa disponibilidade |
+| **Prata** | $200 | Raro (25%) | $200-250 | Material intermediário, boa taxa |
+| **Ouro** | $350 | Raro (15%) | $350-400 | Material valioso, taxa média |
+| **Rubi** | $600 | Muito Raro (10%) | $600-700 | Gema rara, quantidade fixa (1x) |
+| **Esmeralda** | $650 | Muito Raro (10%) | $650-750 | Gema rara, quantidade fixa (1x) |
+
+### 🎯 Análise de Balanceamento
+
+#### ✅ Bem Balanceado
+- **Temperatura IDEAL (850-1150°C):** Lucro médio de ~$907 por ciclo (~$17,533/hora)
+- **Incentivo para jogar corretamente:** Diferença significativa entre temperatura ideal e outras
+- **Risco vs Recompensa:** Requer gestão ativa da temperatura
+
+#### ⚠️ Pontos de Atenção
+1. **Temperatura Quente (1150-1300°C):** PREJUÍZO! Incentiva jogadores a controlarem melhor
+2. **Temperatura Morna (600-850°C):** Lucro baixo ($152) - incentiva buscar temperatura ideal
+3. **Muito Quente (>1300°C):** Lucro mínimo ($80) - punição por descuido
+
+### 💡 Sugestões de Ajuste
+
+Se quiser **aumentar a dificuldade/tempo de farm:**
+```
+Ferro: $70 (-12%)
+Cobre: $100 (-17%)
+Prata: $180 (-10%)
+Ouro: $320 (-9%)
+Rubi: $550 (-8%)
+Esmeralda: $600 (-8%)
+
+Novo lucro médio (temp ideal): ~$780/ciclo (~$14,940/hora)
+```
+
+Se quiser **diminuir a dificuldade/tempo de farm:**
+```
+Ferro: $100 (+25%)
+Cobre: $140 (+17%)
+Prata: $250 (+25%)
+Ouro: $400 (+14%)
+Rubi: $700 (+17%)
+Esmeralda: $750 (+15%)
+
+Novo lucro médio (temp ideal): ~$1,090/ciclo (~$20,880/hora)
+```
 
 ---
 
-## 🔧 Suporte
+## ⏱️ Tempos de Processamento
 
-Para dúvidas ou problemas:
-1. Verifique os logs da consola
-2. Confirme se tem as ferramentas necessárias
-3. Verifique se está na zona correcta
-4. Consulte este README para referência
+### Resumo de Tempos
+
+| Ação | Tempo | Cooldown |
+|------|-------|----------|
+| Mineração | 10s | 2s |
+| Lavagem | 8s | 2s |
+| Processamento | 12s | 2s |
+
+### Ciclo Completo (4 processamentos)
+
+```
+┌─────────────────────────────────────┐
+│  ETAPA 1: MINERAÇÃO                 │
+│  9 minerações × (10s + 2s) = 108s   │
+│  Resultado: 45 pedras brutas        │
+└─────────────────────────────────────┘
+           ↓
+┌─────────────────────────────────────┐
+│  ETAPA 2: LAVAGEM                   │
+│  3 lavagens × (8s + 2s) = 30s       │
+│  Resultado: 45 pedras lavadas       │
+└─────────────────────────────────────┘
+           ↓
+┌─────────────────────────────────────┐
+│  ETAPA 3: PROCESSAMENTO             │
+│  4 processamentos × 12s = 48s       │
+│  Custo: 8 carvões ($400)            │
+│  Resultado: 4-8 minérios            │
+└─────────────────────────────────────┘
+
+TEMPO TOTAL: 186 segundos (3min 6s)
+```
 
 ---
 
-*Sistema desenvolvido para Utopia - Versão 1.0*
+## 📌 Notas Importantes
+
+### Gerenciamento de Temperatura
+- **SEMPRE mantenha a temperatura entre 850-1150°C** para melhor lucro
+- Use carvão estrategicamente: 1 carvão = +20°/s por ~20 segundos
+- Evite ultrapassar 1150°C - materiais degradam
+- Temperatura < 600°C = desperdício total
+
+### Estratégias de Lucro
+
+#### 🏆 Estratégia Ótima
+1. Comprar **20-30 carvões** de uma vez
+2. Minerar até ter **45-60 pedras brutas**
+3. Lavar todas as pedras de uma vez
+4. Processar mantendo **temperatura ideal (850-1150°C)**
+5. **Lucro esperado:** ~$900-1000 por ciclo
+
+#### 💡 Estratégia Conservadora
+1. Comprar **10 carvões**
+2. Minerar até ter **30 pedras brutas**
+3. Processar com cuidado
+4. **Lucro esperado:** ~$450-500 por ciclo
+
+---
+
+## 🔧 Configurações Técnicas
+
+### Arquivos Importantes
+- `config.lua` - Configurações gerais, probabilidades, preços
+- `server/server.lua` - Lógica de processamento e anti-cheat
+- `html/forge.js` - Sistema de temperatura e interface
+
+### Anti-Cheat
+- Verificação de distância (máx: 10 metros)
+- Rate limiting (10 ações/minuto)
+- Validação server-side de todos os itens
+- Logs completos no Discord webhook
+
+---
+
+## 📞 Suporte
+
+Para ajustes nos preços, edite `config.lua`:
+
+```lua
+Config.BuyerItems = {
+    { name = 'ferro', price = 80 },
+    { name = 'cobre', price = 120 },
+    { name = 'prata', price = 200 },
+    { name = 'ouro', price = 350 },
+    { name = 'ruby', price = 600 },
+    { name = 'esmeralda', price = 650 }
+}
+```
+
+---
+
+**Desenvolvido por:** Utopia RP  
+**Versão:** 1.0.0  
+**Última atualização:** Outubro 2025

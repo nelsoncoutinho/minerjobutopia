@@ -99,11 +99,13 @@ Mensagem: "Frio demais, nada se funde assim."
 ### 🟢 Temperatura 850-1150°C (IDEAL) ⭐
 | Item | Probabilidade | Quantidade | Valor Atual |
 |------|--------------|------------|-------------|
-| Ferro | 40% | 1-2x | $80 |
-| Prata | 25% | 1-2x | $200 |
-| Ouro | 15% | 1-2x | $350 |
-| Rubi | 10% | **1x** (fixo) | $600 |
-| Esmeralda | 10% | **1x** (fixo) | $650 |
+| Ferro | 35% | 1-2x | $80 |
+| Cobre | 20% | 1-2x | $120 |
+| Prata | 18% | 1-2x | $200 |
+| Ouro | 12% | 1-2x | $350 |
+| Rubi | 5% | **1x** (fixo) | $600 |
+| Esmeralda | 5% | **1x** (fixo) | $650 |
+| Diamante | 5% | **1x** (fixo) | $800 |
 
 **Rendimento médio:** Alto - Melhor zona para lucro
 
@@ -172,16 +174,18 @@ TEMPO TOTAL: 108s + 30s + 48s = 186 segundos (3min 6s)
 ```
 Probabilidades esperadas em 4 processamentos:
 
-Ferro (40%): ~1.6 vezes → 1.6 × 1.5 (média) = 2.4 unidades → $192
-Prata (25%): ~1.0 vez → 1.0 × 1.5 (média) = 1.5 unidades → $300
-Ouro (15%): ~0.6 vez → 0.6 × 1.5 (média) = 0.9 unidades → $315
-Rubi (10%): ~0.4 vez → 0.4 × 1 (fixo) = 0.4 unidades → $240
-Esmeralda (10%): ~0.4 vez → 0.4 × 1 (fixo) = 0.4 unidades → $260
+Ferro (35%): ~1.4 vezes → 1.4 × 1.5 (média) = 2.1 unidades → $168
+Cobre (20%): ~0.8 vez → 0.8 × 1.5 (média) = 1.2 unidades → $144
+Prata (18%): ~0.72 vez → 0.72 × 1.5 (média) = 1.08 unidades → $216
+Ouro (12%): ~0.48 vez → 0.48 × 1.5 (média) = 0.72 unidades → $252
+Rubi (5%): ~0.2 vez → 0.2 × 1 (fixo) = 0.2 unidades → $120
+Esmeralda (5%): ~0.2 vez → 0.2 × 1 (fixo) = 0.2 unidades → $130
+Diamante (5%): ~0.2 vez → 0.2 × 1 (fixo) = 0.2 unidades → $160
 
-RECEITA MÉDIA: $1,307
+RECEITA MÉDIA: $1,190
 CUSTO: $400 (carvão)
-LUCRO MÉDIO: $907
-LUCRO POR HORA: ~$17,533 (3min 6s por ciclo)
+LUCRO MÉDIO: $790
+LUCRO POR HORA: ~$15,130 (3min 6s por ciclo)
 ```
 
 #### 🟡 TEMPERATURA MORNA (600-850°C)
@@ -232,19 +236,21 @@ Com base na análise de rentabilidade e raridade:
 
 | Item | Preço Atual | Raridade | Preço Recomendado | Justificativa |
 |------|-------------|----------|-------------------|---------------|
-| **Ferro** | $80 | Comum (40%) | $80-100 | Material básico, alta probabilidade |
-| **Cobre** | $120 | Comum (20-30%) | $100-130 | Material comum, boa disponibilidade |
-| **Prata** | $200 | Raro (25%) | $200-250 | Material intermediário, boa taxa |
-| **Ouro** | $350 | Raro (15%) | $350-400 | Material valioso, taxa média |
-| **Rubi** | $600 | Muito Raro (10%) | $600-700 | Gema rara, quantidade fixa (1x) |
-| **Esmeralda** | $650 | Muito Raro (10%) | $650-750 | Gema rara, quantidade fixa (1x) |
+| **Ferro** | $80 | Comum (35%) | $80-100 | Material básico, alta probabilidade |
+| **Cobre** | $120 | Comum (20%) | $100-130 | Material comum, boa disponibilidade |
+| **Prata** | $200 | Raro (18%) | $200-250 | Material intermediário, boa taxa |
+| **Ouro** | $350 | Raro (12%) | $350-400 | Material valioso, taxa média |
+| **Rubi** | $600 | Muito Raro (5%) | $600-700 | Gema rara, quantidade fixa (1x) |
+| **Esmeralda** | $650 | Muito Raro (5%) | $650-750 | Gema rara, quantidade fixa (1x) |
+| **Diamante** | $800 | Muito Raro (5%) | $800-1000 | Gema raríssima, quantidade fixa (1x) |
 
 ### 🎯 Análise de Balanceamento
 
 #### ✅ Bem Balanceado
-- **Temperatura IDEAL (850-1150°C):** Lucro médio de ~$907 por ciclo (~$17,533/hora)
+- **Temperatura IDEAL (850-1150°C):** Lucro médio de ~$790 por ciclo (~$15,130/hora)
 - **Incentivo para jogar corretamente:** Diferença significativa entre temperatura ideal e outras
 - **Risco vs Recompensa:** Requer gestão ativa da temperatura
+- **Sistema de Gemas Raras:** 3 gemas raras (5% cada) adicionam variedade e emoção
 
 #### ⚠️ Pontos de Atenção
 1. **Temperatura Quente (1150-1300°C):** PREJUÍZO! Incentiva jogadores a controlarem melhor
@@ -261,8 +267,9 @@ Prata: $180 (-10%)
 Ouro: $320 (-9%)
 Rubi: $550 (-8%)
 Esmeralda: $600 (-8%)
+Diamante: $700 (-12%)
 
-Novo lucro médio (temp ideal): ~$780/ciclo (~$14,940/hora)
+Novo lucro médio (temp ideal): ~$680/ciclo (~$13,010/hora)
 ```
 
 Se quiser **diminuir a dificuldade/tempo de farm:**
@@ -273,8 +280,9 @@ Prata: $250 (+25%)
 Ouro: $400 (+14%)
 Rubi: $700 (+17%)
 Esmeralda: $750 (+15%)
+Diamante: $1000 (+25%)
 
-Novo lucro médio (temp ideal): ~$1,090/ciclo (~$20,880/hora)
+Novo lucro médio (temp ideal): ~$950/ciclo (~$18,190/hora)
 ```
 
 ---
@@ -367,7 +375,8 @@ Config.BuyerItems = {
     { name = 'prata', price = 200 },
     { name = 'ouro', price = 350 },
     { name = 'ruby', price = 600 },
-    { name = 'esmeralda', price = 650 }
+    { name = 'esmeralda', price = 650 },
+    { name = 'diamante', price = 800 }
 }
 ```
 
